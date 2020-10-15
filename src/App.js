@@ -1,34 +1,26 @@
 import React from 'react';
 import './App.css';
-import SlideElement from "./components/Slider";
+import Slider from "./components/Slider";
 import Square from "./components/Square";
+import SliderItem from "./components/SliderItem";
 
 const App = () => {
-    let startX, endX;
-
-    let onTouchStart = (e) => {
-        startX = e.changedTouches[0].pageX;
-    };
-
-    let onTouchEnd = (e) => {
-        endX = e.changedTouches[0].pageX;
-        console.log(moveRight(endX - startX)?'right':'left')
-    };
-
-    const moveRight = (change) => {
-        return change > 0;
-    };
-
 
     return (
         <div className="App">
-            <header className="App-header">
-                <SlideElement
-                    onTouchStart={onTouchStart}
-                    onTouchEnd={onTouchEnd}
-                    component={<Square/>}
-                />
-            </header>
+            <div className="App-header">
+                <Slider>
+                    <SliderItem>
+                        <Square id={1}/>
+                    </SliderItem>
+                    <SliderItem>
+                        <Square id={2}/>
+                    </SliderItem>
+                    <SliderItem>
+                        <Square id={3}/>
+                    </SliderItem>
+                </Slider>
+            </div>
         </div>
     );
 };
