@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Slider from "./components/Slider";
-import Square from "./components/Square";
-import SliderItem from "./components/SliderItem";
+import Slider from "./components/slider/Slider";
+import Square from "./components/exampleElement/Square";
+import SliderItem from "./components/slider/sliderItem/SliderItem";
 
 const App = () => {
 

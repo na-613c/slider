@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import s from './Slider.module.css'
 
 const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
 
@@ -10,6 +11,7 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
     };
 
     const [state, setState] = useState(initState);
+    const [error, setError] = useState('');
     const [inputPosition, setInputPosition] = useState(0);
 
     useEffect(() => setState(prev => ({...prev, length: children.length})), []);
@@ -42,7 +44,10 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
     };
 
     const setPosition = () => {
-        return setState(prev => ({...prev, currentPosition: +inputPosition}))
+        if (0 > (inputPosition - 1)) return setError('отрицательное значение номера слайда ');
+        else if ((inputPosition - 1) > state.length) return setError('номер слайда превышает количество слайдов');
+        else setError('');
+        return setState(prev => ({...prev, currentPosition: inputPosition - 1}))
     };
 
     const leftSlide = () => {
@@ -60,20 +65,26 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
     };
 
     return (
-        <div>
-            <div onClick={leftSlide}>
-                {children[newPosition(false, state)]}
+        <div className={s.slider}>
+            <div className={s.slide}>
+                <div className={s.additional} onClick={leftSlide}>
+                    {children[newPosition(false, state)]}
+                </div>
+                <div className={s.main} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                    {children[state.currentPosition]}
+                </div>
+                <div className={s.additional} onClick={rightSlide}>
+                    {children[newPosition(true, state)]}
+                </div>
             </div>
-            <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-                {children[state.currentPosition]}
+            <div className={s.controlPanel}>
+                <input type='button' className={s.button} onClick={leftSlide} value={'<-'}/>
+                <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
+                <input type='button' onClick={setPosition} value={'set'}/>
+                <input type='button' className={s.button} onClick={rightSlide} value={'->'}/>
+                <span style={{color: "red", display: "block"}}>{error ? error : <br/>}</span>
             </div>
-            <div onClick={rightSlide}>
-                {children[newPosition(true, state)]}
-            </div>
-            <div onClick={leftSlide}> {'<-'} </div>
-            <div onClick={rightSlide}> -></div>
-            <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
-            <input type='button' onClick={setPosition}/>
+
         </div>
     )
 });
