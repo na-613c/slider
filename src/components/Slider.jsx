@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
-const Slider = React.memo(({children}) => {
+const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
 
     let startX, endX;
 
     const initState = {
-        currentPosition: 0,
+        currentPosition: startPosition,
         length: 0
     };
 
     const [state, setState] = useState(initState);
+    const [inputPosition, setInputPosition] = useState(0);
+
     useEffect(() => setState(prev => ({...prev, length: children.length})), []);
 
     const onTouchStart = (e) => {
@@ -30,9 +32,17 @@ const Slider = React.memo(({children}) => {
 
     const newPosition = (isMoveLeft, state) => {
         let newPosition = state.currentPosition + (isMoveLeft ? 1 : -1);
-        if (newPosition < 0) newPosition = state.length - 1;
-        if (newPosition > state.length - 1) newPosition = 0;
+
+        if (infinite) {
+            if (newPosition < 0) newPosition = state.length - 1;
+            if (newPosition > state.length - 1) newPosition = 0;
+        }
+
         return newPosition
+    };
+
+    const setPosition = () => {
+        return setState(prev => ({...prev, currentPosition: +inputPosition}))
     };
 
     const leftSlide = () => {
@@ -62,8 +72,9 @@ const Slider = React.memo(({children}) => {
             </div>
             <div onClick={leftSlide}> {'<-'} </div>
             <div onClick={rightSlide}> -></div>
+            <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
+            <input type='button' onClick={setPosition}/>
         </div>
-
     )
 });
 
