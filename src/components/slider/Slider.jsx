@@ -22,7 +22,10 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
 
     const onTouchEnd = (e) => {
         endX = e.changedTouches[0].pageX;
-        const isMoveLeft = moveLeft(endX - startX);
+        const distance = endX - startX;
+        if (distance === 0) return null;
+
+        const isMoveLeft = moveLeft(distance);
 
         setState(prev => ({
             ...prev,
