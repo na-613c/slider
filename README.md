@@ -1,12 +1,11 @@
 ## About
 
 Slider created on react js.
-Use no third-parties. Only core react libraries. 
+Use no third-parties. Only core react libraries.
 
+Example  code:
 ```jsx
-//example code
-
-<Slider infinite={true}>
+<Slider infinite={true} startPosition={0}>
     <SliderItem> html code </SliderItem>
     <SliderItem> html code </SliderItem>
     <SliderItem> html code </SliderItem>
@@ -16,7 +15,7 @@ Use no third-parties. Only core react libraries.
 ## API
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
-| infinite | infinite scrolling slider | bool | true |
+| infinite | Infinite scrolling slider | bool | true |
 | startPosition | Key of the initial slide | number | 0 |
 
 ## Details 
