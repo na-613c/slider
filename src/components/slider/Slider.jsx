@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import s from './Slider.module.css'
+import './Slider.css'
 
 const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
 
@@ -67,27 +67,40 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
         }));
     };
 
+    let hideLeft = !(!infinite && state.currentPosition === 0)
+    let hideRight = !(!infinite && state.currentPosition === state.length - 1);
+
     return (
-        <div className={s.slider}>
-            <div className={s.slide}>
-                <div className={s.additional} onClick={leftSlide}>
+        <div className={'slider'}>
+            <div className={'slide'}>
+
+                {hideLeft &&
+                <div className={'additionalFirst'} onClick={leftSlide}>
                     {children[newPosition(false, state)]}
-                </div>
-                <div className={s.main} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                </div>}
+
+                <div className={'main'} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
                     {children[state.currentPosition]}
                 </div>
-                <div className={s.additional} onClick={rightSlide}>
+
+                {hideRight &&
+                <div className={'additionalSecond'} onClick={rightSlide}>
                     {children[newPosition(true, state)]}
-                </div>
+                </div>}
+
             </div>
-            <div className={s.controlPanel}>
-                <input type='button' className={s.button} onClick={leftSlide} value={'<-'}/>
-                <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
-                <input type='button' onClick={setPosition} value={'set'}/>
-                <input type='button' className={s.button} onClick={rightSlide} value={'->'}/>
+            <div className={'controlPanel'}>
+                {hideLeft &&
+                < input type='button' className={'buttonLeft'} onClick={leftSlide} value={'<-'}/>}
+                <div className={'inputField'}>
+                    <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
+                    <input type='button' onClick={setPosition} value={'set'}/>
+                </div>
+                {hideRight &&
+                <input type='button' className={'buttonRight'} onClick={rightSlide} value={'->'}/>}
+
                 <span style={{color: "red", display: "block"}}>{error ? error : <br/>}</span>
             </div>
-
         </div>
     )
 });

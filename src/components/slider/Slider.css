@@ -1,0 +1,130 @@
+.slider {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.slide {
+    margin:auto;
+
+    width: 95%;
+    height: 80vh;
+
+    display: grid;
+    grid-template-areas: "a1 m a2";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 2vw;
+
+
+}
+
+.slide div {
+    margin: auto;
+}
+
+.additionalFirst,
+.additionalSecond,
+.main {
+    width: 100%;
+    box-sizing: border-box;
+    border: white solid 1px;
+    text-align: center;
+
+    position: relative;
+}
+
+.additionalFirst,
+.additionalSecond {
+    height: 50%;
+    background: #61dafb;
+    opacity: .9;
+}
+
+.additionalFirst {
+    grid-area: a1;
+}
+
+.additionalSecond {
+    grid-area: a2;
+}
+
+.main {
+    height: 100%;
+    background: #4c2ffb;
+    grid-area: m;
+}
+
+.inputField input:nth-child(1){
+    width: 80%;
+}
+.inputField input:nth-child(2){
+    width: 20%;
+}
+
+.controlPanel {
+    width: 400px;
+    height: 30px;
+    margin: 20px auto 0;
+    display: grid;
+    grid-template-areas: "bl i br" "e e e";
+    grid-template-columns: 1fr 2fr 1fr;
+    box-sizing: border-box;
+}
+
+.controlPanel input{
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.buttonLeft {
+    grid-area: bl;
+}
+
+.buttonRight {
+    grid-area: br;
+}
+
+.controlPanel div{
+    grid-area: i;
+    font-size:10px
+}
+.controlPanel span{
+    grid-area: e;
+    font-size: 17px;
+    text-align: center;
+}
+
+@media screen and (max-width: 560px) {
+    .slider{
+        justify-content: normal;
+    }
+
+    .slide {
+        height: 60vh;
+        grid-template-areas: "m m" "a1 a2";
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .additionalFirst,
+    .additionalSecond {
+        height: 80%;
+    }
+
+    .controlPanel {
+        width: 100%;
+        height: 30px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-areas: "bl br" "i i" "e e";
+        grid-template-columns: 1fr 1fr;
+        box-sizing: border-box;
+    }
+
+}
