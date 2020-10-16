@@ -13,8 +13,7 @@ Use no third-parties. Only core react libraries.
 </Slider>
 ```
 
-##API
-
+## API
 | Property | Description | Type | Default |
 | :---: | :---: | :---: | :---: |
 | infinite | infinite scrolling slider | bool | true |
