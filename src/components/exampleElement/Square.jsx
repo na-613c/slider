@@ -1,14 +1,13 @@
 import React from 'react';
 
 const style = {
-    display:'block',
     width: 100,
     height: 100,
     background: "Yellow",
     color: "black",
-    // verticalAlign: 'middle',
-    // minHeight: '10em',
-    // display: 'table-cell',
+    verticalAlign: 'middle',
+    minHeight: '10em',
+    display: 'table-cell',
 };
 
 const Square = ({id}) => {

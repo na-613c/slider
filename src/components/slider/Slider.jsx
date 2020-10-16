@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import arrowLeft from '../../images/ArrowLeft.svg'
+import arrowRight from '../../images/ArrowRight.svg'
 import './Slider.css'
 
 const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
 
     let startX, endX;
+
 
     const initState = {
         currentPosition: startPosition,
@@ -91,13 +94,16 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
             </div>
             <div className={'controlPanel'}>
                 {hideLeft &&
-                < input type='button' className={'buttonLeft'} onClick={leftSlide} value={'<-'}/>}
+                <img src={arrowLeft} alt="" className={'buttonLeft'} onClick={leftSlide}/>
+                }
                 <div className={'inputField'}>
-                    <input type="number" name='position' onChange={(e) => setInputPosition(e.target.value)}/>
-                    <input type='button' onClick={setPosition} value={'set'}/>
+                    <input className={'input'} type="number" name='position' placeholder={'Номер слайда'}
+                           onChange={(e) => setInputPosition(e.target.value)}/>
+                    <input type='button' className={'button'} onClick={setPosition} value={'Изменить'}/>
                 </div>
                 {hideRight &&
-                <input type='button' className={'buttonRight'} onClick={rightSlide} value={'->'}/>}
+                <img src={arrowRight} alt="" className={'buttonRight'} onClick={rightSlide}/>
+                }
 
                 <span style={{color: "red", display: "block"}}>{error ? error : <br/>}</span>
             </div>

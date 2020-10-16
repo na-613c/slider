@@ -18,8 +18,6 @@
     grid-template-areas: "a1 m a2";
     grid-template-columns: 1fr 2fr 1fr;
     grid-gap: 2vw;
-
-
 }
 
 .slide div {
@@ -31,16 +29,21 @@
 .main {
     width: 100%;
     box-sizing: border-box;
-    border: white solid 1px;
     text-align: center;
+    background: white;
 
     position: relative;
+}
+
+.additionalFirst:hover,
+.additionalSecond:hover,
+.main:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .additionalFirst,
 .additionalSecond {
     height: 50%;
-    background: #61dafb;
     opacity: .9;
 }
 
@@ -54,15 +57,21 @@
 
 .main {
     height: 100%;
-    background: #4c2ffb;
     grid-area: m;
 }
 
-.inputField input:nth-child(1){
-    width: 80%;
+.inputField{
+    border: 0;
+    outline: 0;
+    outline-offset: 0;
 }
-.inputField input:nth-child(2){
-    width: 20%;
+
+.input{
+    width: 70%;
+    text-align: center;
+}
+.button{
+    width: 30%;
 }
 
 .controlPanel {
@@ -71,7 +80,7 @@
     margin: 20px auto 0;
     display: grid;
     grid-template-areas: "bl i br" "e e e";
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     box-sizing: border-box;
 }
 
@@ -84,10 +93,32 @@
 
 .buttonLeft {
     grid-area: bl;
+    height: 30px;
 }
 
 .buttonRight {
     grid-area: br;
+    height: 30px;
+    margin-left: auto;
+}
+
+
+.button:hover,
+.input:hover{
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
+    border: 0;
+    outline: 0;
+    outline-offset: 0;
+}
+.button:hover,
+.input:hover,
+.buttonLeft:hover,
+.buttonRight:hover{
+    cursor: pointer;
+}
+
+.input:hover{
+    cursor: auto;
 }
 
 .controlPanel div{
