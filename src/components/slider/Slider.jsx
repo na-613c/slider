@@ -17,6 +17,9 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
     const [error, setError] = useState('');
     const [inputPosition, setInputPosition] = useState(0);
 
+    let showLeft = !(!infinite && state.currentPosition === 0);
+    let showRight = !(!infinite && state.currentPosition === state.length - 1);
+
     useEffect(() => setState(prev => ({...prev, length: children.length})), []);
 
     const onTouchStart = (e) => {
@@ -29,6 +32,11 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
         if (distance === 0) return null;
 
         const isMoveLeft = moveLeft(distance);
+
+
+        if (((showLeft === false) && (isMoveLeft === false))
+            || ((showRight === false) && (isMoveLeft === true))) return setState(prev => ({...prev}));
+
 
         setState(prev => ({
             ...prev,
@@ -70,14 +78,12 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
         }));
     };
 
-    let hideLeft = !(!infinite && state.currentPosition === 0)
-    let hideRight = !(!infinite && state.currentPosition === state.length - 1);
 
     return (
         <div className={'slider'}>
             <div className={'slide'}>
 
-                {hideLeft &&
+                {showLeft &&
                 <div className={'additionalFirst'} onClick={leftSlide}>
                     {children[newPosition(false, state)]}
                 </div>}
@@ -86,14 +92,14 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
                     {children[state.currentPosition]}
                 </div>
 
-                {hideRight &&
+                {showRight &&
                 <div className={'additionalSecond'} onClick={rightSlide}>
                     {children[newPosition(true, state)]}
                 </div>}
 
             </div>
             <div className={'controlPanel'}>
-                {hideLeft &&
+                {showLeft &&
                 <img src={arrowLeft} alt="" className={'buttonLeft'} onClick={leftSlide}/>
                 }
                 <div className={'inputField'}>
@@ -101,7 +107,7 @@ const Slider = React.memo(({infinite = true, startPosition = 0, children}) => {
                            onChange={(e) => setInputPosition(e.target.value)}/>
                     <input type='button' className={'button'} onClick={setPosition} value={'Изменить'}/>
                 </div>
-                {hideRight &&
+                {showRight &&
                 <img src={arrowRight} alt="" className={'buttonRight'} onClick={rightSlide}/>
                 }
 
